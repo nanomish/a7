@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CookieManager from 'react-native-cookies';
-import ItemsListView from './ItemsListView';
+import CatalogListView from './CatalogListView';
 import {
   AppRegistry,
   Button,
@@ -12,12 +12,19 @@ import {
 } from 'react-native';
 
 export default class MainView extends Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
+        console.log('### MainView render, this.props:', this.props);
+            /*return <View style={styles.main}>
+                <Text>Main View Screen asdadasfsfsdfsdfsdf1</Text>
+            </View>*/
+
         return (
             <View style={styles.main}>
                 <View style={styles.mainScreen}>
-                    <ItemsListView/>
-                    {/*<Text >Main View Screen asdadasfsfsdfsdfsdf1</Text>*/}
+                    <CatalogListView {...this.props}/>
             
                 </View>
                 <View style={styles.navigator}>
@@ -45,11 +52,15 @@ export default class MainView extends Component {
 
  const styles = {
     main: {
-         flexDirection: 'column',
-         //width: '99%'
+        flex: 1,
+        alignItems: 'stretch',
+        marginTop: 30,
+        padding: 20,
+        //  flexDirection: 'column',
     },
     mainScreen: {
         flex: 3,
+        justifyContent: 'flex-end',
         marginTop: 20,
         width: 300
     },

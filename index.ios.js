@@ -11,6 +11,7 @@ import MainView from './IOSComponents/MainView';
 import {
   AppRegistry,
   Button,
+  NavigatorIOS,
   StyleSheet,
   Text,
   TextInput,
@@ -18,7 +19,7 @@ import {
 } from 'react-native';
 import AuthService from './IOSComponents/AuthService';
 
-export default class a7 extends Component {
+export class InitialComponent extends Component {
   constructor() {
     super();
     this.state = {
@@ -27,19 +28,11 @@ export default class a7 extends Component {
     };
   }
 
-  render() {
-    console.log('########### Render ########################');
-    console.log('########### Render, AuthService');
-    return (
-      <View style={styles.container}>
-        {this.state.loggedIn ? this.showCurrentView() : <LoginScreen/>}
-      </View>
-    );
-  }
-/** this method should check local storage for last 
+  /** this method should check local storage for last 
  * view which was used and try to show it, 
  * if not then show list */
   showCurrentView() {
+    console.log('###################################################### index.ios, showing mainView');
     return <MainView/>;
   }
 
@@ -50,16 +43,46 @@ export default class a7 extends Component {
   }
 
   isUserLoggedIn() {
-    return true;
+    return false;
+  }
+
+  render() {
+    console.log('########### InitialComponent - Render ########################');
+    return (
+      <View style={styles.container}>
+        {this.state.loggedIn ? this.showCurrentView() : <LoginScreen/>}
+      </View>
+    );
+  }  
+}
+
+export default class a7 extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    console.log('########### Render ########################');
+    console.log('########### Render, this.props:', this.props);
+    return (
+      <NavigatorIOS
+        style={styles.container}
+        initialRoute={{
+          title: 'InitialComponent title',
+          component: MainView,
+          passProps: {myProp: 'property'},
+        }}
+      />
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,

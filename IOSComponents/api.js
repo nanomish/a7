@@ -1,4 +1,4 @@
-
+import _ from 'lodash';
 
 export default class api {
     getListsData = function() {
@@ -6,7 +6,23 @@ export default class api {
     }
 }
 
-var itemsData = [
+export function getItem(id) {
+    console.log('api.getItem with id:', id);
+    return _.find(this.itemsData, item => item.id == id);
+}
+
+export function getItems(items) {
+    var result = _.each(items, item => {
+        return _.find(this.itemsData, i => i.id == item.id);
+    });
+    return _.remove(result, r => r == undefined);
+}
+
+export function getCatalog() {
+    return this.catalogData;
+}
+
+export var itemsData = [
     {
         id: 1,
         title: 'item #1',
@@ -18,7 +34,7 @@ var itemsData = [
     }
 ];
 
-export var listsData = [
+export var catalogData = [
     {
         id: 1,
         title: 'title #1',
@@ -31,24 +47,28 @@ export var listsData = [
         title: 'title #2',
         lister_url: 'http://someurlhere-2',
         price: 354,
+        items: [1, 2], 
     },
     {
         id: 3,
         title: 'title #3',
         lister_url: 'http://someurlhere-3',
         price: 34, 
+        items: [1], 
     },
    {
         id: 4,
         title: 'title #4',
         lister_url: 'http://someurlhere-4',
-        price: 12
+        price: 12,
+        items: [1, 2], 
     },
     {
         id: 5,
         title: 'title #5',
         lister_url: 'http://someurlhere-5',
-        price: 15
+        price: 15,
+        items: [1, 2],
     },
     {
         id: 6,
