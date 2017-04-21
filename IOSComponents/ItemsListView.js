@@ -10,6 +10,9 @@ import React, {Component} from 'react';
 import * as apis from './api';
 
 export default class ItemsListView extends Component {
+    constructor(props) {
+        super(props);
+    }
     /*render() {
         console.log('ItemsListView, this.props:',this.props.items);
         return (<View> {this.props.items.map(i => {
@@ -18,7 +21,8 @@ export default class ItemsListView extends Component {
     }*/
 
     render() {
-        return <View ><Text>title here</Text></View>;
+        console.log('ItemsListView - render, this.props:', styles.main);
+        return <View style={styles.main} ><Text>title here</Text></View>;
     }
 
     renderRow(itemId) {
@@ -32,12 +36,12 @@ export default class ItemsListView extends Component {
     }
 }
 
-var styles = {
+var styles = StyleSheet.create({
 main: {
-        flex: 1,
+       flex: 1,
         alignItems: 'stretch',
-        marginTop: 30,
-        padding: 20,
+        // marginTop: 30,
+        // padding: 20,
         //  flexDirection: 'column',
     },
-}
+});

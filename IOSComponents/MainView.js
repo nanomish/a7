@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import CookieManager from 'react-native-cookies';
 import CatalogListView from './CatalogListView';
+import NewCatalogView from './NewCatalogView';
 import {
   AppRegistry,
   Button,
+  NavigatorIOS,
   StyleSheet,
   Text,
   TextInput,
@@ -25,13 +26,21 @@ export default class MainView extends Component {
             <View style={styles.main}>
                 <View style={styles.mainScreen}>
                     <CatalogListView {...this.props}/>
+                    {/*<NavigatorIOS
+                        style={styles.main}
+                        initialRoute={{
+                        title: 'InitialComponent title',
+                        component: CatalogListView,
+                        passProps: {...this.props},
+        }}
+      />*/}
             
                 </View>
                 <View style={styles.navigator}>
                     
-                    <TouchableHighlight style={styles.button}
+                    <TouchableHighlight style={styles.button} onPress={() => this.openNewCatalogView()}
                         underlayColor='#99d9f4'>
-                        <Text style={styles.buttonText}>New</Text>
+                        <Text style={styles.buttonText}>+</Text>
                     </TouchableHighlight>
                     <TouchableHighlight style={styles.button}
                         underlayColor='#99d9f4'>
@@ -48,14 +57,24 @@ export default class MainView extends Component {
                 </View>
             </View>);
     }
+
+    openNewCatalogView() {
+        this.props.navigator.push({
+        component: NewCatalogView,
+        title: 'New catalog',
+        backButtonTitle: 'Back there',
+        passProps: {  }
+      });
+    }
 }
 
- const styles = {
+ const styles = StyleSheet.create({
     main: {
         flex: 1,
-        alignItems: 'stretch',
+        //alignItems: 'stretch',
         marginTop: 30,
         padding: 20,
+        
         //  flexDirection: 'column',
     },
     mainScreen: {
@@ -68,6 +87,7 @@ export default class MainView extends Component {
         flexDirection: 'row',
         flex: 1,
         marginTop: 5,
+        alignSelf: 'flex-start'
     },
     
     buttonText: {
@@ -89,4 +109,4 @@ export default class MainView extends Component {
         alignSelf: 'stretch',
         justifyContent: 'center'
     },
-    }
+});

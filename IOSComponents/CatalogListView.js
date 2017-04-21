@@ -44,6 +44,7 @@ export default class CatalogListView extends Component {
       this.props.navigator.push({
         component: ItemsListView,
         title: 'Items of catalog',
+        backButtonTitle: 'Back there',
         passProps: { items: rowData.items }
       });
     }
@@ -52,7 +53,7 @@ export default class CatalogListView extends Component {
         console.log('## CatalogListView render');
         console.log('## CatalogListView render, props', this.props);
         return (
-        <View>
+        <View style={styles.main}>
             <Text>Some icon or info</Text>
             <ScrollView>
                 <ListView
@@ -64,6 +65,10 @@ export default class CatalogListView extends Component {
 }
 
 const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
   thumb: {
     width: 80,
     height: 80,
