@@ -1,5 +1,13 @@
-import {ListView, ScrollView, StyleSheet, TouchableHighlight, Text, View} from 'react-native';
+import {
+  ListView, 
+  ScrollView, 
+  StyleSheet, 
+  TouchableHighlight, 
+  Text, 
+  View
+} from 'react-native';
 import React, {Component} from 'react';
+var {Actions} = require('react-native-redux-router');
 import ItemsListView from './ItemsListView';
 import * as apis from './api';
 
@@ -41,12 +49,8 @@ export default class CatalogListView extends Component {
       console.log('rowPressed, rowData.items:', rowData.items);
       console.log('rowPressed, apis.getItem:', apis.getItem(rowData.items[0].id));
       //alert('row pressed 3: ' + str);
-      this.props.navigator.push({
-        component: ItemsListView,
-        title: 'Items of catalog',
-        backButtonTitle: 'Back there',
-        passProps: { items: rowData.items }
-      });
+      
+      Actions.items({items: rowData.items, title: 'Items of catalog', })
     }
 
     render() {

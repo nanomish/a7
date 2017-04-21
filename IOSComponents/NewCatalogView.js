@@ -11,7 +11,7 @@ import {
 
 export default class NewCatalogView extends Component {
     render() {
-        return (<View style={styles.main}><Text>New catalog</Text></View>)
+        return (<View style={styles.main}><Text>New catalog</Text></View>);
     }
 }
 

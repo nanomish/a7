@@ -38,7 +38,7 @@ export default class MainView extends Component {
                 </View>
                 <View style={styles.navigator}>
                     
-                    <TouchableHighlight style={styles.button} onPress={() => this.openNewCatalogView()}
+                    <TouchableHighlight style={styles.button}
                         underlayColor='#99d9f4'>
                         <Text style={styles.buttonText}>+</Text>
                     </TouchableHighlight>

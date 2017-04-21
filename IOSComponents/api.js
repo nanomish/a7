@@ -8,7 +8,11 @@ export default class api {
 
 export function getItem(id) {
     console.log('api.getItem with id:', id);
-    return _.find(this.itemsData, item => item.id == id);
+    
+    return _.find(this.itemsData, item => {
+        if (item.id == id) console.log('api.getItem, GOT item:', id);
+        return item.id == id;
+    });
 }
 
 export function getItems(items) {

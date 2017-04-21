@@ -4,10 +4,13 @@
  * @flow
  */
 
+//https://github.com/aksonov/react-native-redux-router
+
 import React, { Component } from 'react';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
 import CookieManager from 'react-native-cookies';
-import LoginScreen from './IOSComponents/LoginScreen';
-import MainView from './IOSComponents/MainView';
+var {Router, routerReducer, Route, Container, Animations, Schema} = require('react-native-redux-router');
 import {
   AppRegistry,
   Button,
@@ -17,7 +20,15 @@ import {
   TextInput,
   View
 } from 'react-native';
+
 import AuthService from './IOSComponents/AuthService';
+import LoginScreen from './IOSComponents/LoginScreen';
+import MainView from './IOSComponents/MainView';
+import CatalogListView from './IOSComponents/CatalogListView';
+import NewCatalogView from './IOSComponents/NewCatalogView';
+import ItemsListView from './IOSComponents/ItemsListView';
+
+let store = createStore(combineReducers({routerReducer}));
 
 export class InitialComponent extends Component {
   constructor() {
@@ -49,9 +60,25 @@ export class InitialComponent extends Component {
   render() {
     console.log('########### InitialComponent - Render ########################');
     return (
-      <View style={styles.container}>
+      /*<View style={styles.container}>
         {this.state.loggedIn ? this.showCurrentView() : <LoginScreen/>}
-      </View>
+      </View>*/
+          <View style={styles.container}>
+                <Router>
+                    {/*<Schema name="modal" sceneConfig={Animations.FlatFloatFromBottom} navBar={NavBarModal}/>
+                    <Schema name="default" sceneConfig={Animations.FlatFloatFromRight} navBar={NavBar}/>
+                    <Schema name="withoutAnimation" navBar={NavBar}/>
+                    <Schema name="tab" navBar={NavBar}/>*/}
+
+                    <Route name="main" component={MainView} initial={true} hideNavBar={true} title="Main"/>
+                    <Route name="catalog" component={CatalogListView} title="Catalog"/>
+                    <Route name="newCatalog" component={NewCatalogView} title="New Catalog" type="replace"/>
+                    <Route name="login" component={LoginScreen} schema="modal"/>
+                    <Route name="login2" component={LoginScreen} schema="withoutAnimation"/>
+                    <Route name="items" component={ItemsListView}/>
+                    <Route name="main2" component={MainView} schema="popup"/>
+                </Router>
+            </View>
     );
   }  
 }
@@ -65,14 +92,9 @@ export default class a7 extends Component {
     console.log('########### Render ########################');
     console.log('########### Render, this.props:', this.props);
     return (
-      <NavigatorIOS
-        style={styles.container}
-        initialRoute={{
-          title: 'InitialComponent title',
-          component: MainView,
-          passProps: {myProp: 'property'},
-        }}
-      />
+       <Provider store={store}>
+           <InitialComponent />
+       </Provider>
     );
   }
 }
