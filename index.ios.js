@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import CookieManager from 'react-native-cookies';
-var {Router, routerReducer, Route, Container, Animations, Schema} = require('react-native-redux-router');
+import {Router, routerReducer, Route, Container, Animations, Schema} from 'react-native-redux-router';
 import {
   AppRegistry,
   Button,
@@ -20,12 +20,14 @@ import {
   TextInput,
   View
 } from 'react-native';
+import {Actions} from 'react-native-redux-router';
+
 import {NavBar, NavBarModal} from './IOSComponents/NavBar';
 import AuthService from './IOSComponents/AuthService';
 import LoginScreen from './IOSComponents/LoginScreen';
 import MainView from './IOSComponents/MainView';
 import CatalogListView from './IOSComponents/CatalogListView';
-import NewCatalogView from './IOSComponents/NewCatalogView';
+import AddNewListView from './IOSComponents/AddNewListView';
 import ItemsListView from './IOSComponents/ItemsListView';
 
 let store = createStore(combineReducers({routerReducer}));
@@ -51,12 +53,16 @@ export class InitialComponent extends Component {
                   <Schema name="tab" navBar={NavBar}/>
 
                   <Route name="main" component={MainView} title="Main" hideNavBar={true}/>
+                  <Route name="main2" component={MainView} initial={true} title="Main2" schema="popup"/>
+
                   <Route name="catalog" component={CatalogListView} title="Catalog"/>
-                  <Route name="newCatalog" component={NewCatalogView} title="New Catalog" type="replace"/>
+                  <Route name="newCatalog" component={AddNewListView} title=" + list" schema="modal" />
+
+                  <Route name="items" component={ItemsListView} schema="withoutAnimation" type="push" title="Items"/>
+                  {/*<Route name="items" component={AddNewItemView} schema="withoutAnimation" type="push" title="Items"/>*/}
+
                   <Route name="login" component={LoginScreen} schema="modal"/>
                   <Route name="login2" component={LoginScreen} schema="withoutAnimation"/>
-                  <Route name="items" component={ItemsListView} schema="withoutAnimation" type="push" title="Items"/>
-                  <Route name="main2" component={MainView} initial={true} title="Main2" schema="popup"/>
               </Router>
           </View>
     );

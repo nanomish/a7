@@ -9,8 +9,13 @@ import {
   View,
 } from 'react-native';
 
-export default class NewCatalogView extends Component {
+export default class AddNewListView extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
+        console.log('## AddNewListView -  render - this.props:', this.props)
         return (<View style={styles.main}><Text>New catalog</Text></View>);
     }
 }

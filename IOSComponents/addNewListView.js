@@ -1,4 +1,5 @@
 import {
+    Keyboard,
     ListView, 
     ScrollView, 
     StyleSheet, 
@@ -11,48 +12,57 @@ import React, {Component} from 'react';
 import * as apis from './api'; 
 import _ from 'lodash';
 
-export default class ItemsListView extends Component {
+export default class AddNewListView extends Component {
      constructor(props) {
       super(props);
       this.state = {text: ''};
     }
 
+    componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+    this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', this._keyboardWillShow);
+  }
+
+    componentWillUnmount() {
+      this.keyboardDidShowListener.remove();
+      this.keyboardDidHideListener.remove();
+    }
+
+    _keyboardDidShow() {
+      //alert('Keyboard Shown');
+      console.log('keyboard did show')
+    }
+
+    _keyboardWillShow() {
+        console.log('keyboard will show')
+    }
+
+    _keyboardDidHide() {
+      console.log('Keyboard Hidden');
+    }
+
+    onSubmit() {
+      Keyboard.dismiss();
+      apis.createNewList({title: this.state.text});
+    }
+
     render() {
-        console.log('## addNewListView render, props', this.props);
+        console.log('## AddNewListView render, props', this.props);
         return (
           <View style={styles.main}>
-              {/*<Text>List name</Text>*/}
               <TextInput
-                style={{height: 40}}
-                placeholder="name"
+                style={{height: 40, borderWidth: 1, borderRadius: 8,  padding: 6}}
+                placeholder="list name"
                 onChangeText={(text) => this.setState({text})}
+                onSubmitEditing={this.onSubmit.bind(this)}
+                autoCapitalize="none"
+                autoFocus={true}
+                autoCorrect={false}
+                keyboardType="default"
+                returnKeyType="go"
                 />
           </View>);
-    }
-
-    rowPressed(rowData) {
-        console.log('item row pressed:', rowData)
-    }
-
-    renderRow(rowData){
-        console.log('ItemsListView, renderRow, rowData:', rowData)
-    
-        return (
-            <TouchableHighlight onPress={() => this.rowPressed(rowData)}
-            underlayColor='#dddddd'>
-            <View>
-            <View style={styles.rowContainer}>
-                <View  style={styles.textContainer}>                
-                <Text style={styles.title}
-                        numberOfLines={1}>{rowData.title}</Text>
-                <Text style={styles.url}
-                        numberOfLines={1}>{rowData.url}</Text>        
-                </View>
-            </View>
-            <View style={styles.separator}/>
-            </View>
-        </TouchableHighlight>
-        )
     }
 }
 
@@ -64,7 +74,8 @@ main: {
          padding: 20,
         //  flexDirection: 'column',
     },
-    thumb: {
+    thumb: 
+    {
     width: 80,
     height: 80,
     marginRight: 10

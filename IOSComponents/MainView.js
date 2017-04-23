@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import CatalogListView from './CatalogListView';
-import NewCatalogView from './NewCatalogView';
 import {
   AppRegistry,
   Button,
@@ -11,6 +9,11 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+import {Actions} from 'react-native-redux-router';
+
+import AddNewCatalogView from './AddNewCatalogView';
+import CatalogListView from './CatalogListView';
+
 
 export default class MainView extends Component {
     constructor(props) {
@@ -26,7 +29,7 @@ export default class MainView extends Component {
                 </View>
                 <View style={styles.navigator}>
                     
-                    <TouchableHighlight style={styles.button}
+                    <TouchableHighlight style={styles.button} onPress={() => Actions.newCatalog({})}
                         underlayColor='#99d9f4'>
                         <Text style={styles.buttonText}>+</Text>
                     </TouchableHighlight>

@@ -29,6 +29,14 @@ export function getCatalog() {
     return this.catalogData;
 }
 
+export function createNewList(listObject) {
+    var _id = this.catalogData.length + 2;
+    var lister_url = "https://newadded-" + _id;
+    listObject.id = _id;
+    listObject.lister_url = lister_url;
+    this.catalogData.push(listObject);
+}
+
 export var itemsData = [
     {
         id: 1,
