@@ -12,6 +12,7 @@
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.3",
     "react-native-cookies": "^2.0.0",
+    "react-native-navbar": "^1.7.1",
     "react-native-redux-router": "^1.0.7",
     "react-native-storage-wrapper": "^0.1.0",
     "react-navigation": "^1.0.0-beta.7",

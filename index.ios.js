@@ -20,7 +20,7 @@ import {
   TextInput,
   View
 } from 'react-native';
-
+import {NavBar, NavBarModal} from './IOSComponents/NavBar';
 import AuthService from './IOSComponents/AuthService';
 import LoginScreen from './IOSComponents/LoginScreen';
 import MainView from './IOSComponents/MainView';
@@ -39,46 +39,26 @@ export class InitialComponent extends Component {
     };
   }
 
-  /** this method should check local storage for last 
- * view which was used and try to show it, 
- * if not then show list */
-  showCurrentView() {
-    console.log('###################################################### index.ios, showing mainView');
-    return <MainView/>;
-  }
-
-  componentWillMount() {
-      //TODO: create one file with constants
-      console.log('###################################################### index.ios, componentWillMount');
-      this.state.loggedIn = this.isUserLoggedIn();
-  }
-
-  isUserLoggedIn() {
-    return false;
-  }
-
   render() {
     console.log('########### InitialComponent - Render ########################');
     return (
-      /*<View style={styles.container}>
-        {this.state.loggedIn ? this.showCurrentView() : <LoginScreen/>}
-      </View>*/
-          <View style={styles.container}>
-                <Router>
-                    {/*<Schema name="modal" sceneConfig={Animations.FlatFloatFromBottom} navBar={NavBarModal}/>
-                    <Schema name="default" sceneConfig={Animations.FlatFloatFromRight} navBar={NavBar}/>
-                    <Schema name="withoutAnimation" navBar={NavBar}/>
-                    <Schema name="tab" navBar={NavBar}/>*/}
+        <View style={styles.container}>
+          <View style={{position:'absolute',left:0,right:0,top:0,bottom:0,backgroundColor:'#F5FCFF'}}/>
+              <Router>
+                  <Schema name="modal" sceneConfig={Animations.FlatFloatFromBottom} navBar={NavBarModal}/>
+                  <Schema name="default" sceneConfig={Animations.FlatFloatFromRight} navBar={NavBar}/>
+                  <Schema name="withoutAnimation" navBar={NavBar}/>
+                  <Schema name="tab" navBar={NavBar}/>
 
-                    <Route name="main" component={MainView} initial={true} hideNavBar={true} title="Main"/>
-                    <Route name="catalog" component={CatalogListView} title="Catalog"/>
-                    <Route name="newCatalog" component={NewCatalogView} title="New Catalog" type="replace"/>
-                    <Route name="login" component={LoginScreen} schema="modal"/>
-                    <Route name="login2" component={LoginScreen} schema="withoutAnimation"/>
-                    <Route name="items" component={ItemsListView}/>
-                    <Route name="main2" component={MainView} schema="popup"/>
-                </Router>
-            </View>
+                  <Route name="main" component={MainView} title="Main" hideNavBar={true}/>
+                  <Route name="catalog" component={CatalogListView} title="Catalog"/>
+                  <Route name="newCatalog" component={NewCatalogView} title="New Catalog" type="replace"/>
+                  <Route name="login" component={LoginScreen} schema="modal"/>
+                  <Route name="login2" component={LoginScreen} schema="withoutAnimation"/>
+                  <Route name="items" component={ItemsListView} schema="withoutAnimation" type="push" title="Items"/>
+                  <Route name="main2" component={MainView} initial={true} title="Main2" schema="popup"/>
+              </Router>
+          </View>
     );
   }  
 }
@@ -89,8 +69,7 @@ export default class a7 extends Component {
   }
 
   render() {
-    console.log('########### Render ########################');
-    console.log('########### Render, this.props:', this.props);
+    console.log('########### Render a7 ########################');
     return (
        <Provider store={store}>
            <InitialComponent />
@@ -102,9 +81,6 @@ export default class a7 extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,

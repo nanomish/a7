@@ -18,23 +18,11 @@ export default class MainView extends Component {
     }
     render() {
         console.log('### MainView render, this.props:', this.props);
-            /*return <View style={styles.main}>
-                <Text>Main View Screen asdadasfsfsdfsdfsdf1</Text>
-            </View>*/
-
         return (
             <View style={styles.main}>
                 <View style={styles.mainScreen}>
                     <CatalogListView {...this.props}/>
-                    {/*<NavigatorIOS
-                        style={styles.main}
-                        initialRoute={{
-                        title: 'InitialComponent title',
-                        component: CatalogListView,
-                        passProps: {...this.props},
-        }}
-      />*/}
-            
+    
                 </View>
                 <View style={styles.navigator}>
                     
@@ -57,30 +45,23 @@ export default class MainView extends Component {
                 </View>
             </View>);
     }
-
-    openNewCatalogView() {
-        this.props.navigator.push({
-        component: NewCatalogView,
-        title: 'New catalog',
-        backButtonTitle: 'Back there',
-        passProps: {  }
-      });
-    }
 }
 
  const styles = StyleSheet.create({
     main: {
         flex: 1,
-        //alignItems: 'stretch',
-        marginTop: 30,
-        padding: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+        //marginTop: 30,
+        //padding: 20,
         
         //  flexDirection: 'column',
     },
     mainScreen: {
         flex: 3,
         justifyContent: 'flex-end',
-        marginTop: 20,
+        //marginTop: 20,
         width: 300
     },
     navigator: {

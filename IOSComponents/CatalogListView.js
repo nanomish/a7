@@ -7,7 +7,7 @@ import {
   View
 } from 'react-native';
 import React, {Component} from 'react';
-var {Actions} = require('react-native-redux-router');
+import {Actions} from 'react-native-redux-router';
 import ItemsListView from './ItemsListView';
 import * as apis from './api';
 
@@ -27,44 +27,41 @@ export default class CatalogListView extends Component {
     renderRow(rowData) {
         console.log('## CatalogListView renderRow')
         return (
-        <TouchableHighlight onPress={() => this.rowPressed(rowData)}
-            underlayColor='#dddddd'>
-            <View>
-            <View style={styles.rowContainer}>
-                <View  style={styles.textContainer}>                
-                <Text style={styles.title}
-                        numberOfLines={1}>{rowData.title}</Text>
-                <Text style={styles.lister_url}
-                        numberOfLines={1}>{rowData.lister_url}</Text>        
-                </View>
-            </View>
-            <View style={styles.separator}/>
-            </View>
-        </TouchableHighlight>
+          <TouchableHighlight onPress={() => this.rowPressed(rowData)}
+              underlayColor='#dddddd'>
+              <View>
+              <View style={styles.rowContainer}>
+                  <View  style={styles.textContainer}>                
+                  <Text style={styles.title}
+                          numberOfLines={1}>{rowData.title}</Text>
+                  <Text style={styles.lister_url}
+                          numberOfLines={1}>{rowData.lister_url}</Text>        
+                  </View>
+              </View>
+              <View style={styles.separator}/>
+              </View>
+          </TouchableHighlight>
         );
     }
 
     rowPressed(rowData) {
-      var str = rowData.items && rowData.items.length > 0 && rowData.items[0] && apis.getItem(rowData.items[0]).title || rowData.lister_url;
-      console.log('rowPressed, rowData.items:', rowData.items);
-      console.log('rowPressed, apis.getItem:', apis.getItem(rowData.items[0].id));
-      //alert('row pressed 3: ' + str);
+      console.log('## CatalogListView rowPressed, rowData:', rowData);
       
-      Actions.items({items: rowData.items, title: 'Items of catalog', })
+      Actions.items({items: rowData.items, title: 'Items of ' + rowData.title, })
     }
 
     render() {
         console.log('## CatalogListView render');
         console.log('## CatalogListView render, props', this.props);
         return (
-        <View style={styles.main}>
-            <Text>Some icon or info</Text>
-            <ScrollView>
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderRow.bind(this)}/>
-            </ScrollView>    
-        </View>);
+          <View style={styles.main}>
+              <Text>Some icon or info</Text>
+              <ScrollView>
+                  <ListView
+                      dataSource={this.state.dataSource}
+                      renderRow={this.renderRow.bind(this)}/>
+              </ScrollView>    
+          </View>);
     }
 }
 

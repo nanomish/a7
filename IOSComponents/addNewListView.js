@@ -4,6 +4,7 @@ import {
     StyleSheet, 
     TouchableHighlight, 
     Text, 
+    TextInput,
     View
 } from 'react-native';
 import React, {Component} from 'react';
@@ -13,27 +14,19 @@ import _ from 'lodash';
 export default class ItemsListView extends Component {
      constructor(props) {
       super(props);
-      console.log('## ItemsListView constructor, this.props', this.props);
-      var dataSource = new ListView.DataSource(
-        {rowHasChanged: (r1, r2) => r1.id !== r2.id});
-      var items = apis.getItems(this.props.items);
-      
-      console.log('## ItemsListView constructor, props.items', this.props.items);
-      this.state = {
-        dataSource: dataSource.cloneWithRows(items)
-      };
+      this.state = {text: ''};
     }
 
     render() {
-        console.log('## ItemsListView render, props', this.props);
+        console.log('## addNewListView render, props', this.props);
         return (
           <View style={styles.main}>
-              <Text>Some items or info</Text>
-              <ScrollView>
-                  <ListView
-                      dataSource={this.state.dataSource}
-                      renderRow={this.renderRow.bind(this)}/>
-              </ScrollView>    
+              {/*<Text>List name</Text>*/}
+              <TextInput
+                style={{height: 40}}
+                placeholder="name"
+                onChangeText={(text) => this.setState({text})}
+                />
           </View>);
     }
 

@@ -7,19 +7,22 @@ export default class api {
 }
 
 export function getItem(id) {
-    console.log('api.getItem with id:', id);
-    
     return _.find(this.itemsData, item => {
-        if (item.id == id) console.log('api.getItem, GOT item:', id);
         return item.id == id;
     });
 }
 
-export function getItems(items) {
-    var result = _.each(items, item => {
-        return _.find(this.itemsData, i => i.id == item.id);
+export function getItems(itemIds) {
+    console.log('items found (some undefined)\'s:', itemIds);
+    var result = _.map(itemIds, itemId => {
+        console.log('items found (some undefined):', itemId);
+        return _.find(this.itemsData, i => {
+            console.log('i = ', i)
+            return i.id == itemId;
+        });
     });
-    return _.remove(result, r => r == undefined);
+    console.log('items found (some undefined) result:', result);
+    return result;
 }
 
 export function getCatalog() {
