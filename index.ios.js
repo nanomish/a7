@@ -4,7 +4,7 @@
  * @flow
  */
 
-//https://github.com/aksonov/react-native-redux-router
+// Router taken from here: https://github.com/aksonov/react-native-redux-router
 
 import React, { Component } from 'react';
 import { createStore, combineReducers } from 'redux';
@@ -26,9 +26,10 @@ import {NavBar, NavBarModal} from './IOSComponents/NavBar';
 import AuthService from './IOSComponents/AuthService';
 import LoginScreen from './IOSComponents/LoginScreen';
 import MainView from './IOSComponents/MainView';
-import CatalogListView from './IOSComponents/CatalogListView';
+import CatalogListView from './IOSComponents/Lists/CatalogListView';
 import AddNewListView from './IOSComponents/AddNewListView';
 import ItemsListView from './IOSComponents/ItemsListView';
+import AddNewItemView from './IOSComponents/AddNewItemView';
 
 let store = createStore(combineReducers({routerReducer}));
 
@@ -59,6 +60,8 @@ export class InitialComponent extends Component {
                   <Route name="newCatalog" component={AddNewListView} title=" + list" schema="modal" />
 
                   <Route name="items" component={ItemsListView} schema="withoutAnimation" type="push" title="Items"/>
+                  <Route name="itemsNew" component={ItemsListView} type="replace" title="Items"/>
+                  <Route name="newItem" component={AddNewItemView} type="replace" title="add item"/>
                   {/*<Route name="items" component={AddNewItemView} schema="withoutAnimation" type="push" title="Items"/>*/}
 
                   <Route name="login" component={LoginScreen} schema="modal"/>

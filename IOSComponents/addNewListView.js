@@ -8,6 +8,7 @@ import {
     TextInput,
     View
 } from 'react-native';
+import {Actions} from 'react-native-redux-router';
 import React, {Component} from 'react';
 import * as apis from './api'; 
 import _ from 'lodash';
@@ -44,11 +45,11 @@ export default class AddNewListView extends Component {
 
     onSubmit() {
       Keyboard.dismiss();
-      apis.createNewList({title: this.state.text});
+      var id = apis.createNewList({title: this.state.text});
+      Actions.itemsNew({items: [1], title: this.state.text})
     }
 
     render() {
-        console.log('## AddNewListView render, props', this.props);
         return (
           <View style={styles.main}>
               <TextInput

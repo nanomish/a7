@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import React, {Component} from 'react';
 import {Actions} from 'react-native-redux-router';
-import ItemsListView from './ItemsListView';
-import * as apis from './api';
+import ItemsListView from '../ItemsListView';
+import * as apis from '../api';
 
 export default class CatalogListView extends Component {
     constructor(props) {
@@ -21,11 +21,16 @@ export default class CatalogListView extends Component {
       this.state = {
         dataSource: dataSource.cloneWithRows(catalog)
       };
+    
+    }
 
+    ComponentDidMount() {
+      var catalog = apis.getCatalog();
+      console.log('catalog length:', catalog.length);
+      this.setState({catalogLength: catalog.length});
     }
 
     renderRow(rowData) {
-        console.log('## CatalogListView renderRow')
         return (
           <TouchableHighlight onPress={() => this.rowPressed(rowData)}
               underlayColor='#dddddd'>
@@ -45,17 +50,15 @@ export default class CatalogListView extends Component {
     }
 
     rowPressed(rowData) {
-      console.log('## CatalogListView rowPressed, rowData:', rowData);
-      
       Actions.items({items: rowData.items, title: 'Items of ' + rowData.title, })
     }
 
     render() {
-        console.log('## CatalogListView render');
-        console.log('## CatalogListView render, props', this.props);
+      var catalog = apis.getCatalog();
+      console.log('render CatalogListView catalog length:', catalog.length);
         return (
           <View style={styles.main}>
-              <Text>Some icon or info</Text>
+              <Text>Catalog of lists ({this.state.catalogLength})</Text>
               <ScrollView>
                   <ListView
                       dataSource={this.state.dataSource}
@@ -69,6 +72,7 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     justifyContent: 'space-between',
+    marginTop: 10,
   },
   thumb: {
     width: 80,

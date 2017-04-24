@@ -6,6 +6,7 @@ import {
     Text, 
     View
 } from 'react-native';
+import {Actions} from 'react-native-redux-router';
 import React, {Component} from 'react';
 import * as apis from './api'; 
 import _ from 'lodash';
@@ -13,15 +14,18 @@ import _ from 'lodash';
 export default class ItemsListView extends Component {
      constructor(props) {
       super(props);
-      console.log('## ItemsListView constructor, this.props', this.props);
       var dataSource = new ListView.DataSource(
         {rowHasChanged: (r1, r2) => r1.id !== r2.id});
       var items = apis.getItems(this.props.items);
-      
-      console.log('## ItemsListView constructor, props.items', this.props.items);
+
       this.state = {
         dataSource: dataSource.cloneWithRows(items)
       };
+    }
+
+    openAddNewItemView() {
+      console.log('openAddNewItemView, props:', this.props)
+      //Actions.newItem({...this.props});
     }
 
     render() {
@@ -32,8 +36,15 @@ export default class ItemsListView extends Component {
               <ScrollView>
                   <ListView
                       dataSource={this.state.dataSource}
+                      enableEmptySections={true}
                       renderRow={this.renderRow.bind(this)}/>
               </ScrollView>    
+              <View style={styles.navigator}>
+                <TouchableHighlight style={styles.button} onPress={() => Actions.newItem({})}
+                          underlayColor='#99d9f4'>
+                          <Text style={styles.buttonText}> + item</Text>
+                </TouchableHighlight>
+              </View>
           </View>);
     }
 
@@ -42,9 +53,7 @@ export default class ItemsListView extends Component {
     }
 
     renderRow(rowData){
-        console.log('ItemsListView, renderRow, rowData:', rowData)
-    
-        return (
+      return (
             <TouchableHighlight onPress={() => this.rowPressed(rowData)}
             underlayColor='#dddddd'>
             <View>
@@ -64,17 +73,38 @@ export default class ItemsListView extends Component {
 }
 
 var styles = StyleSheet.create({
-main: {
+  button: {
+        height: 36,
         flex: 1,
-        //alignItems: 'stretch',
-         marginTop: 30,
-         padding: 20,
-        //  flexDirection: 'column',
+        flexDirection: 'row',
+        backgroundColor: '#48BBEC',
+        borderColor: '#48BBEC',
+        borderWidth: 1,
+        borderRadius: 8,
+        width: 100,
+        marginBottom: 10,
+        marginLeft: 2,
+        marginRight: 2,
+        alignSelf: 'center',
+        justifyContent: 'center'
     },
-    thumb: {
-    width: 80,
-    height: 80,
-    marginRight: 10
+  main: {
+      flex: 1,
+      //alignItems: 'stretch',
+        marginTop: 30,
+        padding: 20,
+      //  flexDirection: 'column',
+      },
+      thumb: {
+      width: 80,
+      height: 80,
+      marginRight: 10
+  },
+  navigator: {
+      flexDirection: 'row',
+      flex: 1,
+      marginTop: 5,
+      alignSelf: 'flex-start'
   },
   textContainer: {
     flex: 1

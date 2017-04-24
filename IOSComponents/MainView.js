@@ -12,7 +12,7 @@ import {
 import {Actions} from 'react-native-redux-router';
 
 import AddNewCatalogView from './AddNewCatalogView';
-import CatalogListView from './CatalogListView';
+import CatalogListView from './Lists/CatalogListView';
 
 
 export default class MainView extends Component {
@@ -20,7 +20,6 @@ export default class MainView extends Component {
         super(props);
     }
     render() {
-        console.log('### MainView render, this.props:', this.props);
         return (
             <View style={styles.main}>
                 <View style={styles.mainScreen}>
@@ -31,20 +30,16 @@ export default class MainView extends Component {
                     
                     <TouchableHighlight style={styles.button} onPress={() => Actions.newCatalog({})}
                         underlayColor='#99d9f4'>
-                        <Text style={styles.buttonText}>+</Text>
+                        <Text style={styles.buttonText}>+ new</Text>
                     </TouchableHighlight>
                     <TouchableHighlight style={styles.button}
                         underlayColor='#99d9f4'>
-                        <Text style={styles.buttonText}>Menu#2</Text>
-                    </TouchableHighlight>
+                        <Text style={styles.buttonText}>people</Text>
+                    </TouchableHighlight>            
                     <TouchableHighlight style={styles.button}
                         underlayColor='#99d9f4'>
-                        <Text style={styles.buttonText}>Menu#3</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight style={styles.button}
-                        underlayColor='#99d9f4'>
-                        <Text style={styles.buttonText}>Log Out</Text>
-                    </TouchableHighlight>
+                        <Text style={styles.buttonText}>log out</Text>
+                    </TouchableHighlight>           
                 </View>
             </View>);
     }
