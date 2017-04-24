@@ -26,8 +26,7 @@ export default class MainView extends Component {
                     <CatalogListView {...this.props}/>
     
                 </View>
-                <View style={styles.navigator}>
-                    
+                <View style={styles.navigator}>      
                     <TouchableHighlight style={styles.button} onPress={() => Actions.newCatalog({})}
                         underlayColor='#99d9f4'>
                         <Text style={styles.buttonText}>+ new</Text>

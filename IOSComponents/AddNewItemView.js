@@ -50,7 +50,7 @@ export default class AddNewItemView extends Component {
 
     onSubmit() {
       Keyboard.dismiss();
-      //var id = apis.createNewList({title: this.state.name});
+      var id = apis.createNewItem({title: this.state.name});
       //Actions.items({items: [1], title: this.state.name});
     }
 

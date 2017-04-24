@@ -29,6 +29,11 @@ export function getCatalog() {
     return this.catalogData || [];
 }
 
+export function createNewItem(listId, itemObject) {
+    // add created date and other data to the new item
+    return 
+}
+
 export function createNewList(listObject) {
     var _id = this.catalogData.length + 2;
     var lister_url = "https://newadded-" + _id;
