@@ -13,15 +13,11 @@ export function getItem(id) {
 }
 
 export function getItems(itemIds) {
-    console.log('items found (some undefined)\'s:', itemIds);
     var result = _.map(itemIds, itemId => {
-        console.log('items found (some undefined):', itemId);
         return _.find(this.itemsData, i => {
-            console.log('i = ', i)
             return i.id == itemId;
         });
     });
-    console.log('items found (some undefined) result:', result);
     return result;
 }
 
@@ -31,7 +27,18 @@ export function getCatalog() {
 
 export function createNewItem(listId, itemObject) {
     // add created date and other data to the new item
-    return 
+    const _id = this.itemsData.length + 2;
+    itemObject = _.extend({}, itemObject, {id: _id});
+    this.itemsData.push(itemObject);
+    this.catalogData = _.map(this.catalogData, c => {
+        if (c.id = listId) {
+            //TODO: following one line should be removed, as empty array would be added on list creation
+            c.items || (c.items = []);
+            c.items.push(itemObject.id);
+        }
+        return c;
+    });
+    return true;
 }
 
 export function createNewList(listObject) {

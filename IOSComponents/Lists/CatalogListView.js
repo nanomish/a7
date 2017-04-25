@@ -50,7 +50,7 @@ export default class CatalogListView extends Component {
     }
 
     rowPressed(rowData) {
-      Actions.items({items: rowData.items, title: 'Items of ' + rowData.title, })
+      Actions.items({items: rowData.items, title: 'Items of ' + rowData.title, listId: rowData.id})
     }
 
     render() {

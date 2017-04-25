@@ -1,3 +1,4 @@
+//@flow
 import {
     Keyboard,
     ListView, 
@@ -41,16 +42,20 @@ export default class AddNewItemView extends Component {
     }
 
     _keyboardWillShow() {
-        console.log('keyboard will show')
+        console.log('keyboard will show');
     }
 
     _keyboardDidHide() {
       console.log('Keyboard Hidden');
     }
 
-    onSubmit() {
+    onSubmitForm() {
       Keyboard.dismiss();
-      var id = apis.createNewItem({title: this.state.name});
+      var id = apis.createNewItem(this.props.listId, {
+          title: this.state.title,
+          amount: this.state.amount,
+        });
+        console.log('AddNewItemView - onSubmitForm - this.props:', this.props);
       //Actions.items({items: [1], title: this.state.name});
     }
 
@@ -64,8 +69,8 @@ export default class AddNewItemView extends Component {
               <TextInput
                 style={{height: 40, borderWidth: 1, borderRadius: 8,  padding: 6}}
                 placeholder="item description"
-                onChangeText={(name) => this.setState({name})}
-                onSubmitEditing={this.onSubmit.bind(this)}
+                onChangeText={title => this.setState({title})}
+                //onSubmitEditing={this.onSubmit.bind(this)}
                 autoCapitalize="none"
                 autoFocus={true}
                 autoCorrect={false}
@@ -75,19 +80,14 @@ export default class AddNewItemView extends Component {
               <TextInput
                 style={{height: 40, marginTop:3, borderWidth: 1, borderRadius: 8,  padding: 6}}
                 placeholder="amount"
-                onChangeText={(amount) => this.setState({amount})}
-                onSubmitEditing={this.onSubmit.bind(this)}
+                onChangeText={amount => this.setState({amount})}
+                //onSubmitEditing={this.onSubmit.bind(this)}
                 autoCapitalize="none"
-                autoFocus={true}
                 autoCorrect={false}
                 keyboardType="numeric"
                 returnKeyType="done"
                 />
-                <TouchableHighlight underlayColor="#EE4724" 
-                style={styles.pictureButton}
-                onPress={() => this.onAddPicture()}>
-                    <Text>+ picture</Text>
-              </TouchableHighlight>
+               
 
               <TouchableHighlight underlayColor="#fffeee" 
                 style={styles.button}

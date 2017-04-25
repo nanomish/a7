@@ -61,7 +61,7 @@ export class InitialComponent extends Component {
 
                   <Route name="items" component={ItemsListView} schema="withoutAnimation" type="push" title="Items"/>
                   <Route name="itemsNew" component={ItemsListView} type="replace" title="Items"/>
-                  <Route name="newItem" component={AddNewItemView} type="replace" title="add item"/>
+                  <Route name="newItem" component={AddNewItemView} schema="modal" title="Add item"/>
                   {/*<Route name="items" component={AddNewItemView} schema="withoutAnimation" type="push" title="Items"/>*/}
 
                   <Route name="login" component={LoginScreen} schema="modal"/>

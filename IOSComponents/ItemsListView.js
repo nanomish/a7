@@ -40,7 +40,7 @@ export default class ItemsListView extends Component {
                       renderRow={this.renderRow.bind(this)}/>
               </ScrollView>    
               <View style={styles.navigator}>
-                <TouchableHighlight style={styles.button} onPress={() => Actions.newItem({})}
+                <TouchableHighlight style={styles.button} onPress={() => Actions.newItem({listId: this.props.listId})}
                           underlayColor='#99d9f4'>
                           <Text style={styles.buttonText}> + item</Text>
                 </TouchableHighlight>
@@ -53,6 +53,7 @@ export default class ItemsListView extends Component {
     }
 
     renderRow(rowData){
+        console.log('item renderRow:', rowData)
       return (
             <TouchableHighlight onPress={() => this.rowPressed(rowData)}
             underlayColor='#dddddd'>
