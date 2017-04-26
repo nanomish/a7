@@ -22,14 +22,13 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-redux-router';
 
-import {NavBar, NavBarModal} from './IOSComponents/NavBar';
-import AuthService from './IOSComponents/AuthService';
-import LoginScreen from './IOSComponents/LoginScreen';
-import MainView from './IOSComponents/MainView';
-import CatalogListView from './IOSComponents/Lists/CatalogListView';
-import AddNewListView from './IOSComponents/AddNewListView';
-import ItemsListView from './IOSComponents/ItemsListView';
-import AddNewItemView from './IOSComponents/AddNewItemView';
+import {NavBar, NavBarModal} from './components/NavBar';
+import LoginScreen from './components/LoginScreen';
+import MainView from './components/MainView';
+import CatalogListView from './components/Lists/CatalogListView';
+import AddNewListView from './components/AddNewListView';
+import ItemsListView from './components/ItemsListView';
+import AddNewItemView from './components/AddNewItemView';
 
 let store = createStore(combineReducers({routerReducer}));
 

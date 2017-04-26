@@ -46,6 +46,7 @@ export function createNewList(listObject) {
     var lister_url = "https://newadded-" + _id;
     listObject.id = _id;
     listObject.lister_url = lister_url;
+    console.log('apis - createNewList - this.catalogData:', this.catalogData);
     this.catalogData.push(listObject);
     return {id: _id};
 }

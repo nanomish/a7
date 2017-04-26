@@ -8,26 +8,50 @@ import {
 } from 'react-native';
 import React, {Component} from 'react';
 import {Actions} from 'react-native-redux-router';
-import ItemsListView from '../ItemsListView';
 import * as apis from '../api';
 
 export default class CatalogListView extends Component {
     constructor(props) {
       super(props);
-      var dataSource = new ListView.DataSource(
+      this.dataSource = new ListView.DataSource(
         {rowHasChanged: (r1, r2) => r1.id !== r2.id});
       var catalog = apis.getCatalog();
   
       this.state = {
-        dataSource: dataSource.cloneWithRows(catalog)
+        dataSource: this.dataSource.cloneWithRows([])
       };
     
     }
 
-    ComponentDidMount() {
+    componentWillUpdate() {
+        console.log('CatalogListView - componentWillUpdate:');
+
+    }
+
+    componentDidUpdate() {
+        console.log('CatalogListView - componentDidUpdate:');
+
+    }
+
+    componentWillMount() {
+        console.log('CatalogListView - componentWillMount:');
+        var catalog = apis.getCatalog();
+        console.log('CatalogListView - componentWillUpdate catalog length:', catalog.length);
+        this.setState({
+            catalogLength: catalog.length,
+            dataSource: this.dataSource.cloneWithRows(catalog)
+        });
+    }
+
+    componentDidMount() {
       var catalog = apis.getCatalog();
-      console.log('catalog length:', catalog.length);
-      this.setState({catalogLength: catalog.length});
+      console.log('CatalogListView - componentDidMount catalog length:', catalog.length);
+
+
+      this.setState({
+          catalogLength: catalog.length,
+          dataSource: this.dataSource.cloneWithRows(catalog)
+      });
     }
 
     renderRow(rowData) {

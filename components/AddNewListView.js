@@ -46,7 +46,7 @@ export default class AddNewListView extends Component {
     onSubmit() {
       Keyboard.dismiss();
       var id = apis.createNewList({title: this.state.text});
-      Actions.itemsNew({items: [1], title: this.state.text})
+      Actions.itemsNew({items: [], title: this.state.text})
     }
 
     render() {
