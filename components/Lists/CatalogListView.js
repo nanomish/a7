@@ -8,50 +8,53 @@ import {
 } from 'react-native';
 import React, {Component} from 'react';
 import {Actions} from 'react-native-redux-router';
+
 import * as apis from '../api';
+import {Catalog} from '../../data/Catalog';
+import {TimeUtils} from '../../utils/times';
 
 export default class CatalogListView extends Component {
     constructor(props) {
       super(props);
+      this.catalog = new Catalog();
+      this.timeUtils = new TimeUtils();
       this.dataSource = new ListView.DataSource(
         {rowHasChanged: (r1, r2) => r1.id !== r2.id});
-      var catalog = apis.getCatalog();
+      apis.getCatalogAsync()
+          .then(catalog => {
+              this.catalog.set(catalog);
+              this._updateCatalogState();
+              console.log('CatalogListView - constructor, after async')
+          });
   
       this.state = {
-        dataSource: this.dataSource.cloneWithRows([])
+        dataSource: this.dataSource.cloneWithRows([]),
+        catalogUpdateTime: new Date(),
       };
     
     }
 
-    componentWillUpdate() {
-        console.log('CatalogListView - componentWillUpdate:');
-
-    }
-
-    componentDidUpdate() {
-        console.log('CatalogListView - componentDidUpdate:');
-
-    }
-
-    componentWillMount() {
-        console.log('CatalogListView - componentWillMount:');
-        var catalog = apis.getCatalog();
-        console.log('CatalogListView - componentWillUpdate catalog length:', catalog.length);
+    _updateCatalogState() {
+        var catalog = this.catalog.get();
         this.setState({
-            catalogLength: catalog.length,
-            dataSource: this.dataSource.cloneWithRows(catalog)
+            catalogLength:  catalog.length,
+            dataSource: this.dataSource.cloneWithRows(catalog),
+            catalogUpdateTime: this.catalog.getUpdateTime()
         });
     }
 
+    componentDidUpdate() {
+        if (this.timeUtils._timeCompare(this.catalog.getUpdateTime(), this.state.catalogUpdateTime) < 0) {
+            apis.getCatalogAsync()
+                .then(catalog => {
+                    this.catalog.set(catalog);
+                    this._updateCatalogState();
+                });
+        }
+    }
+
     componentDidMount() {
-      var catalog = apis.getCatalog();
-      console.log('CatalogListView - componentDidMount catalog length:', catalog.length);
-
-
-      this.setState({
-          catalogLength: catalog.length,
-          dataSource: this.dataSource.cloneWithRows(catalog)
-      });
+      this._updateCatalogState();
     }
 
     renderRow(rowData) {
@@ -74,12 +77,10 @@ export default class CatalogListView extends Component {
     }
 
     rowPressed(rowData) {
-      Actions.items({items: rowData.items, title: 'Items of ' + rowData.title, listId: rowData.id})
+      var action = Actions.items({items: rowData.items, title: 'Items of ' + rowData.title, listId: rowData.id})
     }
 
     render() {
-      var catalog = apis.getCatalog();
-      console.log('render CatalogListView catalog length:', catalog.length);
         return (
           <View style={styles.main}>
               <Text>Catalog of lists ({this.state.catalogLength})</Text>

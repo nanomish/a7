@@ -1,4 +1,12 @@
 import _ from 'lodash';
+import {Catalog} from '../data/Catalog';
+
+function __p__(value) {
+    return new Promise((resolve, reject) => {
+        resolve(value);
+        reject();
+    })
+}
 
 export default class api {
     getListsData = function() {
@@ -25,13 +33,17 @@ export function getCatalog() {
     return this.catalogData || [];
 }
 
+export function getCatalogAsync() {
+    return __p__(this.catalogData || []);
+}
+
 export function createNewItem(listId, itemObject) {
     // add created date and other data to the new item
     const _id = this.itemsData.length + 2;
     itemObject = _.extend({}, itemObject, {id: _id});
     this.itemsData.push(itemObject);
     this.catalogData = _.map(this.catalogData, c => {
-        if (c.id = listId) {
+        if (c.id == listId) {
             //TODO: following one line should be removed, as empty array would be added on list creation
             c.items || (c.items = []);
             c.items.push(itemObject.id);
@@ -42,12 +54,14 @@ export function createNewItem(listId, itemObject) {
 }
 
 export function createNewList(listObject) {
+    var catalog = new Catalog();
     var _id = this.catalogData.length + 2;
     var lister_url = "https://newadded-" + _id;
     listObject.id = _id;
     listObject.lister_url = lister_url;
     console.log('apis - createNewList - this.catalogData:', this.catalogData);
-    this.catalogData.push(listObject);
+    //this.catalogData.push(listObject);
+    catalog.addListToCatalog(listObject);
     return {id: _id};
 }
 
@@ -141,52 +155,4 @@ export var catalogData = [
         lister_url: 'http://someurlhere-12',
         price: 36
     },
-    {
-        id: 13,
-        title: 'cat-title #13',
-        lister_url: 'http://someurlhere-13',
-        price: 39
-    },
-    {
-        id: 14,
-        title: 'cat-title #14',
-        lister_url: 'http://someurlhere-14',
-        price: 42
-    },
-    {
-        id: 15,
-        title: 'cat-title #15',
-        lister_url: 'http://someurlhere-15',
-        price: 45
-    },
-    {
-        id: 16,
-        title: 'cat-title #16',
-        lister_url: 'http://someurlhere-16',
-        price: 48
-    },
-    {
-        id: 17,
-        title: 'cat-title #17',
-        lister_url: 'http://someurlhere-17',
-        price: 51
-    },
-    {
-        id: 18,
-        title: 'cat-title #18',
-        lister_url: 'http://someurlhere-18',
-        price: 54
-    },
-    {
-        id: 19,
-        title: 'cat-title #19',
-        lister_url: 'http://someurlhere-19',
-        price: 57
-    },
-    {
-        id: 20,
-        title: 'cat-title #20',
-        lister_url: 'http://someurlhere-20',
-        price: 60
-     }
 ];

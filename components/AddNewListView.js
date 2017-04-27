@@ -12,10 +12,12 @@ import {Actions} from 'react-native-redux-router';
 import React, {Component} from 'react';
 import * as apis from './api'; 
 import _ from 'lodash';
+import {Catalog} from '../data/Catalog';
 
 export default class AddNewListView extends Component {
      constructor(props) {
       super(props);
+      this.catalog = new Catalog();
       this.state = {text: ''};
     }
 

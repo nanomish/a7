@@ -20,7 +20,6 @@ import {
   TextInput,
   View
 } from 'react-native';
-import {Actions} from 'react-native-redux-router';
 
 import {NavBar, NavBarModal} from './components/NavBar';
 import LoginScreen from './components/LoginScreen';
