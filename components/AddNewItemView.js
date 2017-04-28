@@ -88,12 +88,13 @@ export default class AddNewItemView extends Component {
                 returnKeyType="done"
                 />
                
-
-              <TouchableHighlight underlayColor="#fffeee" 
-                style={styles.button}
-                onPress={() => this.onSubmitForm()}>
-                    <Text>Save</Text>
-              </TouchableHighlight>
+              <View style={{flex:1, height: 140, flexDirection: 'column', alignSelf: 'stretch', marginTop: 30}}>
+                  <TouchableHighlight underlayColor="#fffeee"
+                    style={styles.button}
+                    onPress={() => this.onSubmitForm()}>
+                        <Text style={{fontSize: 23}}>Save</Text>
+                  </TouchableHighlight>
+              </View>
           </View>);
     }
 }
@@ -101,9 +102,10 @@ export default class AddNewItemView extends Component {
 var styles = StyleSheet.create({
     main: {
         flex: 1,
-        //alignItems: 'stretch',
+        alignItems: 'stretch',
         marginTop: 30,
         padding: 20,
+        //height: '80%'
         flexDirection: 'column',
     },
     thumb: {
@@ -148,7 +150,7 @@ var styles = StyleSheet.create({
     },
     button: {
         height: 36,
-        flex: 1,
+        //flex: 3,
         flexDirection: 'row',
         backgroundColor: '#48BBEC',
         borderColor: '#48BBEC',

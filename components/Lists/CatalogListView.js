@@ -77,7 +77,7 @@ export default class CatalogListView extends Component {
     }
 
     rowPressed(rowData) {
-      var action = Actions.items({items: rowData.items, title: 'Items of ' + rowData.title, listId: rowData.id})
+      Actions.items({items: rowData.list_items, title: 'Items of ' + rowData.title, listId: rowData.id});
     }
 
     render() {

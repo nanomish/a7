@@ -7,26 +7,11 @@ function __p__(value) {
         reject();
     })
 }
-
+/* ================= Lists: ================= */
 export default class api {
     getListsData = function() {
         return this.listsData;
     }
-}
-
-export function getItem(id) {
-    return _.find(this.itemsData, item => {
-        return item.id == id;
-    });
-}
-
-export function getItems(itemIds) {
-    var result = _.map(itemIds, itemId => {
-        return _.find(this.itemsData, i => {
-            return i.id == itemId;
-        });
-    });
-    return result;
 }
 
 export function getCatalog() {
@@ -35,6 +20,43 @@ export function getCatalog() {
 
 export function getCatalogAsync() {
     return __p__(this.catalogData || []);
+}
+
+export function createNewList(listObject) {
+    var catalog = new Catalog();
+    var _id = this.catalogData.length + 2;
+    var lister_url = "https://newadded-" + _id;
+    listObject.id = _id;
+    listObject.lister_url = lister_url;
+    catalog.addListToCatalog(listObject);
+    return __p__({id: _id});
+}
+
+
+/* ================= Items: ================= */
+export function getItem(id) {
+    var item = _.find(this.itemsData, item => {
+        return item.id == id;
+    });
+    return __p__(item);
+}
+
+export function getListItems(listItemsIds) {
+    var result = _.map(listItemsIds, item => {
+        return _.find(this.itemsData, i => {
+            return i.id == item.item_id;
+        });
+    });
+    return result;
+}
+
+export function getListItemsAsync(listItemsIds) {
+    var result = _.map(listItemsIds, item => {
+        return _.find(this.itemsData, i => {
+            return i.id == item.item_id;
+        });
+    });
+    return __p__(result || []);
 }
 
 export function createNewItem(listId, itemObject) {
@@ -48,21 +70,9 @@ export function createNewItem(listId, itemObject) {
             c.items || (c.items = []);
             c.items.push(itemObject.id);
         }
-        return c;
+        return __p__(c);
     });
-    return true;
-}
-
-export function createNewList(listObject) {
-    var catalog = new Catalog();
-    var _id = this.catalogData.length + 2;
-    var lister_url = "https://newadded-" + _id;
-    listObject.id = _id;
-    listObject.lister_url = lister_url;
-    console.log('apis - createNewList - this.catalogData:', this.catalogData);
-    //this.catalogData.push(listObject);
-    catalog.addListToCatalog(listObject);
-    return {id: _id};
+    return __p__(true);
 }
 
 export var itemsData = [
@@ -83,76 +93,75 @@ export var catalogData = [
         title: 'cat-title #1',
         lister_url: 'http://someurlhere-1',
         price: 34,
-        items: [1, 2], 
+        items: [1, 2],
+        list_items: [
+            {
+                item_id: 1,
+                status: 'open',
+                amount: 2
+            },
+            {
+                item_id: 2,
+                status: 'open',
+                amount: 2
+            }
+        ]
     },
     {
         id: 2,
         title: 'cat-title #2',
         lister_url: 'http://someurlhere-2',
         price: 354,
-        items: [1, 2], 
+        items: [1, 2],
+        list_items: [
+            {
+                item_id: 1,
+                status: 'open',
+                amount: 2
+            },
+            {
+                item_id: 2,
+                status: 'open',
+                amount: 2
+            }
+        ]
     },
     {
         id: 3,
         title: 'cat-title #3',
         lister_url: 'http://someurlhere-3',
-        price: 34, 
-        items: [1], 
+        price: 34,
+        items: [1],
+        list_items: [
+            {
+                item_id: 1,
+                status: 'open',
+                amount: 2
+            },
+            {
+                item_id: 2,
+                status: 'open',
+                amount: 2
+            }
+        ]
     },
    {
         id: 4,
         title: 'cat-title #4',
         lister_url: 'http://someurlhere-4',
         price: 12,
-        items: [1, 2], 
-    },
-    {
-        id: 5,
-        title: 'cat-title #5',
-        lister_url: 'http://someurlhere-5',
-        price: 15,
         items: [1, 2],
-    },
-    {
-        id: 6,
-        title: 'cat-title #6',
-        lister_url: 'http://someurlhere-6',
-        price: 18
-    },
-    {
-        id: 7,
-        title: 'cat-title #7',
-        lister_url: 'http://someurlhere-7',
-        price: 21
-    },
-    {
-        id: 8,
-        title: 'cat-title #8',
-        lister_url: 'http://someurlhere-8',
-        price: 24
-    },
-    {
-        id: 9,
-        title: 'cat-title #9',
-        lister_url: 'http://someurlhere-9',
-        price: 27
-    },
-    {
-        id: 10,
-        title: 'cat-title #10',
-        lister_url: 'http://someurlhere-10',
-        price: 30
-    },
-    {
-        id: 11,
-        title: 'cat-title #11',
-        lister_url: 'http://someurlhere-11',
-        price: 33
-    },
-    {
-        id: 12,
-        title: 'cat-title #12',
-        lister_url: 'http://someurlhere-12',
-        price: 36
+        list_items: [
+            {
+                item_id: 1,
+                status: 'open',
+                amount: 2
+            },
+            {
+                item_id: 2,
+                status: 'open',
+                amount: 2
+            }
+        ]
     },
 ];

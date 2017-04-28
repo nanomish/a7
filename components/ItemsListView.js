@@ -16,10 +16,10 @@ export default class ItemsListView extends Component {
       super(props);
       var dataSource = new ListView.DataSource(
         {rowHasChanged: (r1, r2) => r1.id !== r2.id});
-      var items = apis.getItems(this.props.items);
-
+      //var items = apis.getItems(this.props.items);
+      var listItems = apis.getListItems(this.props.items);
       this.state = {
-        dataSource: dataSource.cloneWithRows(items)
+        dataSource: dataSource.cloneWithRows(listItems)
       };
     }
 
@@ -32,7 +32,7 @@ export default class ItemsListView extends Component {
         console.log('## ItemsListView render, props', this.props);
         return (
           <View style={styles.main}>
-              <Text>Some items or info</Text>
+              <Text>List items and info</Text>
               <ScrollView>
                   <ListView
                       dataSource={this.state.dataSource}
@@ -53,7 +53,7 @@ export default class ItemsListView extends Component {
     }
 
     renderRow(rowData){
-        console.log('item renderRow:', rowData)
+        console.log('listItems renderRow:', rowData)
       return (
             <TouchableHighlight onPress={() => this.rowPressed(rowData)}
             underlayColor='#dddddd'>
@@ -75,37 +75,37 @@ export default class ItemsListView extends Component {
 
 var styles = StyleSheet.create({
   button: {
-        height: 36,
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: '#48BBEC',
-        borderColor: '#48BBEC',
-        borderWidth: 1,
-        borderRadius: 8,
-        width: 100,
-        marginBottom: 10,
-        marginLeft: 2,
-        marginRight: 2,
-        alignSelf: 'center',
-        justifyContent: 'center'
+    height: 36,
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
+    borderWidth: 1,
+    borderRadius: 8,
+    width: 100,
+    marginBottom: 10,
+    marginLeft: 2,
+    marginRight: 2,
+    alignSelf: 'center',
+    justifyContent: 'center'
     },
   main: {
-      flex: 1,
-      //alignItems: 'stretch',
-        marginTop: 30,
-        padding: 20,
-      //  flexDirection: 'column',
-      },
-      thumb: {
-      width: 80,
-      height: 80,
-      marginRight: 10
+    flex: 1,
+    //alignItems: 'stretch',
+    marginTop: 30,
+    padding: 20,
+    //  flexDirection: 'column',
+    },
+  thumb: {
+    width: 80,
+    height: 80,
+    marginRight: 10
   },
   navigator: {
-      flexDirection: 'row',
-      flex: 1,
-      marginTop: 5,
-      alignSelf: 'flex-start'
+    flexDirection: 'row',
+    flex: 1,
+    marginTop: 5,
+    alignSelf: 'flex-start'
   },
   textContainer: {
     flex: 1
