@@ -19,11 +19,13 @@ export default class CatalogListView extends Component {
       this.catalog = new Catalog();
       this.timeUtils = new TimeUtils();
       this.dataSource = new ListView.DataSource(
-        {rowHasChanged: (r1, r2) => r1.id !== r2.id});
+        {
+            rowHasChanged: (r1, r2) => r1.id !== r2.id
+        });
       apis.getCatalogAsync()
           .then(catalog => {
               this.catalog.set(catalog);
-              this._updateCatalogState();
+              this._updateState();
               console.log('CatalogListView - constructor, after async')
           });
   
@@ -34,7 +36,7 @@ export default class CatalogListView extends Component {
     
     }
 
-    _updateCatalogState() {
+    _updateState() {
         var catalog = this.catalog.get();
         this.setState({
             catalogLength:  catalog.length,
@@ -48,13 +50,13 @@ export default class CatalogListView extends Component {
             apis.getCatalogAsync()
                 .then(catalog => {
                     this.catalog.set(catalog);
-                    this._updateCatalogState();
+                    this._updateState();
                 });
         }
     }
 
     componentDidMount() {
-      this._updateCatalogState();
+      this._updateState();
     }
 
     renderRow(rowData) {

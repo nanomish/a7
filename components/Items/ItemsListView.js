@@ -8,19 +8,41 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-redux-router';
 import React, {Component} from 'react';
-import * as apis from './api'; 
-import _ from 'lodash';
+
+import * as apis from '../api';
+import {TimeUtils} from '../../utils/times';
+
 
 export default class ItemsListView extends Component {
-     constructor(props) {
-      super(props);
-      var dataSource = new ListView.DataSource(
-        {rowHasChanged: (r1, r2) => r1.id !== r2.id});
-      //var items = apis.getItems(this.props.items);
-      var listItems = apis.getListItems(this.props.items);
-      this.state = {
-        dataSource: dataSource.cloneWithRows(listItems)
-      };
+    constructor(props) {
+        super(props);
+        var dataSource = new ListView.DataSource(
+            {
+                rowHasChanged: (r1, r2) => r1.id !== r2.id
+            });
+        this.catalog = new Catalog();
+        this.timeUtils = new TimeUtils();
+        apis.getListItemsAsync()
+            .then(catalog => {
+                this.catalog.set(catalog);
+                this._updateState();
+                console.log('CatalogListView - constructor, after async')
+            });
+        var listItems = apis.getListItems(this.props.items);
+
+        this.state = {
+            dataSource: this.dataSource.cloneWithRows([listItems]),
+            catalogUpdateTime: new Date(),
+        };
+    }
+
+    _updateState() {
+        var catalog = this.catalog.get();
+        this.setState({
+            catalogLength:  catalog.length,
+            dataSource: this.dataSource.cloneWithRows(catalog),
+            catalogUpdateTime: this.catalog.getUpdateTime()
+        });
     }
 
     openAddNewItemView() {

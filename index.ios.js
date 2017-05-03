@@ -25,8 +25,8 @@ import {NavBar, NavBarModal} from './components/NavBar';
 import LoginScreen from './components/LoginScreen';
 import MainView from './components/MainView';
 import CatalogListView from './components/Lists/CatalogListView';
+import ItemsListView from './components/Items/ItemsListView';
 import AddNewListView from './components/AddNewListView';
-import ItemsListView from './components/ItemsListView';
 import AddNewItemView from './components/AddNewItemView';
 
 let store = createStore(combineReducers({routerReducer}));
