@@ -10,21 +10,21 @@ import {Actions} from 'react-native-redux-router';
 import React, {Component} from 'react';
 
 import * as apis from '../api';
+import {Item} from '../../data/Item';
 import {TimeUtils} from '../../utils/times';
-
 
 export default class ItemsListView extends Component {
     constructor(props) {
         super(props);
-        var dataSource = new ListView.DataSource(
+        this.dataSource = new ListView.DataSource(
             {
                 rowHasChanged: (r1, r2) => r1.id !== r2.id
             });
-        this.catalog = new Catalog();
+        this.collection = new Item();
         this.timeUtils = new TimeUtils();
         apis.getListItemsAsync()
-            .then(catalog => {
-                this.catalog.set(catalog);
+            .then(collection => {
+                this.collection.set(collection);
                 this._updateState();
                 console.log('CatalogListView - constructor, after async')
             });
@@ -37,11 +37,11 @@ export default class ItemsListView extends Component {
     }
 
     _updateState() {
-        var catalog = this.catalog.get();
+        var collection = this.collection.get();
         this.setState({
-            catalogLength:  catalog.length,
-            dataSource: this.dataSource.cloneWithRows(catalog),
-            catalogUpdateTime: this.catalog.getUpdateTime()
+            collectionLength:  collection.length,
+            dataSource: this.dataSource.cloneWithRows(collection),
+            catalogUpdateTime: this.collection.getUpdateTime()
         });
     }
 

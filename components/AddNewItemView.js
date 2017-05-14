@@ -56,7 +56,7 @@ export default class AddNewItemView extends Component {
           amount: this.state.amount,
         });
         console.log('AddNewItemView - onSubmitForm - this.props:', this.props);
-      //Actions.items({items: [1], title: this.state.name});
+      Actions.items({items: [1], title: this.state.name});
     }
 
     onAddPicture() {
