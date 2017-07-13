@@ -32,7 +32,7 @@ export default class ItemsListView extends Component {
 
         this.state = {
             dataSource: this.dataSource.cloneWithRows([listItems]),
-            catalogUpdateTime: new Date(),
+            catalogUpdateTime: new Date()
         };
     }
 

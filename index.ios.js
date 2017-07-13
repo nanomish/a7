@@ -60,7 +60,6 @@ export class InitialComponent extends Component {
                   <Route name="items" component={ItemsListView} schema="withoutAnimation" type="push" title="Items"/>
                   <Route name="itemsNew" component={ItemsListView} type="replace" title="Items"/>
                   <Route name="newItem" component={AddNewItemView} schema="modal" title="Add item"/>
-                  {/*<Route name="items" component={AddNewItemView} schema="withoutAnimation" type="push" title="Items"/>*/}
 
                   <Route name="login" component={LoginScreen} schema="modal"/>
                   <Route name="login2" component={LoginScreen} schema="withoutAnimation"/>
@@ -76,7 +75,7 @@ export default class a7 extends Component {
   }
 
   render() {
-    console.log('########### Render a7 ########################');
+    console.log('index.ios: ########### Render a7 ########################');
     return (
        <Provider store={store}>
            <InitialComponent />

@@ -29,6 +29,7 @@ export function createNewList(listObject) {
     listObject.id = _id;
     listObject.lister_url = lister_url;
     catalog.addListToCatalog(listObject);
+
     return __p__({id: _id});
 }
 
